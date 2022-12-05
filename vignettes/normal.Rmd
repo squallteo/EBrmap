@@ -1,0 +1,104 @@
+---
+title: "EB-rMAP Prior with a Normal Endpoint"
+author: "Hongtao Zhang"
+date: "12/05/2022"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{EB-rMAP Prior with a Normal Endpoint}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+We demonstrate the usage of EB-rMAP when a normal endpoint is considered. The standard deviation of the endpoint is assumed known throughout the case study. 
+
+## Historical Data and the MAP Prior
+The historical data to construct the MAP prior are from dataset *`crohn`* in *RBesT* package [1]. The data contain six historical trials in moderate to severe Crohn's disease. The normal endpoint is the change from baseline in Crohn's Disease Activity Index (CDAI) at week 6, for which a smaller negative value indicates a better response. The common standard deviation of the endpoint $\sigma$ is fixed at 88. A random effect meta-analysis yields a point estimate of -50 for the mean response, with 95\% confidence interval (-61.7, -38.1). 
+```{r}
+dt <- RBesT::crohn
+sigma <- 88
+dt$se_yh <- sigma/sqrt(dt$n)
+kableExtra::kable(dt)
+```
+
+The MAP prior is derived using the *`RBesT::gMAP`* command, which is subsequently approximated by a mixture of three conjugate normal distributions with *`RBesT::automixfit`* command. 
+
+The vauge prior to construct the robust MAP prior is a normal distribution with mean -50 and effective sample size of 1. This can be specified using the `mn` parameterization in *`RBesT::mixnorm`*. Note that the hyper-parameters are automatically converted to `ms` parameterization corresponding to mean and standard deviation. 
+
+For detailed specifications, refer to Section 3.1 of Zhang et al. [2] 
+```{r, eval=T}
+set.seed(712)
+map_mcmc <- RBesT::gMAP(cbind(y, se_yh) ~ 1 | study, 
+                        weight = n,
+                        data=dt,
+                        family=gaussian,
+                        beta.prior=cbind(0, sigma),
+                        tau.dist="HalfNormal",tau.prior=cbind(0,sigma/2))
+map_hat <- RBesT::automixfit(map_mcmc)
+RBesT::sigma(map_hat) <- sigma
+
+vague_prior <- RBesT::mixnorm(c(1, -50, 1), sigma=sigma, param="mn")
+
+print(map_hat)
+print(vague_prior)
+```
+
+## EB-rMAP Prior
+We design a current two-arm trial with sample sizes in control and treatment arms respectively at $n_C=50$ and $n_T=100$. The general principle is to evaluate the EB-rMAP weight $w_{EB}$ within a reasonably wide range of observed mean response $\bar{y}_C$. In this case study, we set the range to be -80 to -20, which is even wider than the 95% confidence interval by the meta analysis, and thus should yield a comprehensive view of the behavior of $w_{EB}$ across various scenarios. We first set $\gamma$ at 0.85 and plot. 
+```{r, eval=T, echo=F}
+# library(EBrmap)
+library(RBesT)
+library(tidyverse)
+library(ggplot2)
+
+source("~/GitHubProject/EBrmap/R/EB_rMAP.R")
+source("~/GitHubProject/EBrmap/R/wEB.R")
+source("~/GitHubProject/EBrmap/R/plot.R")
+
+
+obj1 <- EB_rMAP(map_hat, vague_prior, ppp_cut=0.85, n=100, y_range=c(-80, -20))
+```
+```{r, fig.width=6, fig.fullwidth=TRUE}
+plot(obj1)
+```
+
+In order to tune the EB-rMAP prior method, it would be more helpful if we overlay multiple plots of $w_{EB}$ corresponding to different $\gamma$s on the same plot. This can be easily done with creating multiple EB-rMAP objects and minimal data manipulation. For example, we also consider $\gamma=$ 0.7, 0.8 and 0.9. The vertical dashed line at -49.9 in the plot represents the point estimate of historical mean response by the meta-analysis. 
+```{r}
+obj2 <- EB_rMAP(map_hat, vague_prior, ppp_cut=0.7, n=100, y_range=c(-80, -20))
+obj3 <- EB_rMAP(map_hat, vague_prior, ppp_cut=0.8, n=100, y_range=c(-80, -20))
+obj4 <- EB_rMAP(map_hat, vague_prior, ppp_cut=0.9, n=100, y_range=c(-80, -20))
+
+plotdt1 <- obj1$wdt %>% mutate(Gamma=obj1$ppp_cut)
+plotdt2 <- obj2$wdt %>% mutate(Gamma=obj2$ppp_cut)
+plotdt3 <- obj3$wdt %>% mutate(Gamma=obj3$ppp_cut)
+plotdt4 <- obj4$wdt %>% mutate(Gamma=obj4$ppp_cut)
+plotdt <- rbind(plotdt1, plotdt2, plotdt3, plotdt4)
+```
+```{r, fig.width=6, fig.fullwidth=TRUE}
+plotdt %>% 
+  ggplot(aes(x=y, y = w_eb, color=factor(Gamma))) + geom_line(size=1) + geom_vline(xintercept=-49.9, linetype="dashed") +
+  xlab("Observed Mean Response") + ylab("EB-rMAP Weight") + theme_bw() + 
+  scale_color_discrete(name="Gamma")
+```
+
+The generated plot is a useful tool to conduct an initial screen of $\gamma$ value. For example, a $\gamma$ of 0.7 might be overly aggressive as there is still considerable amount of borrowing ($w_{EB}=0.54$) when the observed mean response $\bar{y}_C = -62$ which is outside the 95% meta-analysis confidence interval. On the other hand, one could argue that a $\gamma$ of 0.9 might be conservative. For illustration purposes, we choose $\gamma=0.85$. In practice, once an initial set of $\gamma$ values is determined, their performances should be confirmed via simulations in order to select the $\gamma$ value that yields the most robust performance. 
+
+## Decision-Making with Observed Current Trial Data
+This section is not part of the EB-rMAP prior framework, but we would like to complete the story for the case study. 
+
+The *`wEB`* function returns the EB-rMAP weight $w_{EB}$ corresponding to an observed mean response $\bar{y}_C$.
+```{r, eval=F}
+wEB(obj1, -53)
+```
+
+
+## References
+[1] Weber, S., Li, Y., Seaman III, J. W., Kakizume, T., & Schmidli, H. (2021). Applying Meta-Analytic-Predictive Priors with the R Bayesian Evidence Synthesis Tools. *Journal of Statistical Software*, 100, 1-32.
+
+[2] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2022+) Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes. *Pharmaceutical Statistics*
