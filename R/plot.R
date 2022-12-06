@@ -1,5 +1,13 @@
-#' @param obj "EBrMAP" class object returned by EB_rMAP function
-
+#' Plot an EBrMAP Object
+#'
+#' @description
+#' Plot EB-rMAP weight against various observed response in the current trial
+#'
+#' @param obj "EBrMAP" class object returned by `EB_rMAP` function
+#'
+#' @returns
+#' A ggplot2 object which can be further customized
+#'
 #' @export
 
 plot.EBrMAP <- function(obj){
