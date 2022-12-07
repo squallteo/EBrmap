@@ -50,8 +50,8 @@ print(vague_prior)
 ```
 
 ## EB-rMAP Prior
-We design a current two-arm trial with sample sizes in control and treatment arms respectively at $n_C=50$ and $n_T=100$. The general principle is to evaluate the EB-rMAP weight $w_{EB}$ within a reasonably wide range of observed mean response $\bar{y}_C$. In this case study, we set the range to be -80 to -20, which is even wider than the 95% confidence interval by the meta analysis, and thus should yield a comprehensive view of the behavior of $w_{EB}$ across various scenarios. We first set $\gamma$ at 0.85 and plot. 
-```{r, eval=T, echo=F}
+We design a current two-arm trial with sample sizes in control and treatment arms respectively at $n_C=50$ and $n_T=100$. The general principle is to evaluate the EB-rMAP weight $w_{EB}$ within a reasonably wide range of observed mean response $\bar{y}_C$. In this case study, we set the range to be -80 to -20, which is even wider than the 95% confidence interval by the meta analysis, and thus should yield a comprehensive view of the behavior of $w_{EB}$ across various scenarios. We first set $\gamma$ at 0.85 and plot. *`EB_rMAP`* is the function that implements the EB-rMAP prior method. 
+```{r, eval=T, echo=T, warning=FALSE}
 # library(EBrmap)
 library(RBesT)
 library(tidyverse)
@@ -89,14 +89,28 @@ plotdt %>%
 
 The generated plot is a useful tool to conduct an initial screen of $\gamma$ value. For example, a $\gamma$ of 0.7 might be overly aggressive as there is still considerable amount of borrowing ($w_{EB}=0.54$) when the observed mean response $\bar{y}_C = -62$ which is outside the 95% meta-analysis confidence interval. On the other hand, one could argue that a $\gamma$ of 0.9 might be conservative. For illustration purposes, we choose $\gamma=0.85$. In practice, once an initial set of $\gamma$ values is determined, their performances should be confirmed via simulations in order to select the $\gamma$ value that yields the most robust performance. 
 
-## Decision-Making with Observed Current Trial Data
-This section is not part of the EB-rMAP prior framework, but we would like to complete the story for the case study. 
-
-The *`wEB`* function returns the EB-rMAP weight $w_{EB}$ corresponding to an observed mean response $\bar{y}_C$.
-```{r, eval=F}
+## Inference with Observed Current Trial Data
+Bayesian inference based on posterior probabilities can be drawn after the new trial is concluded and the mean responses $\bar{y}_C$ and $\bar{y}_T$ are observed. Suppose that $\bar{y}_C$ and $\bar{y}_T$ are -53 and -80, respectively. The *`wEB`* function returns the EB-rMAP weight $w_{EB}$ corresponding to an observed mean response $\bar{y}_C$. This weight will be used to build the robust MAP prior for the control mean responses. We draw a sample of size 20,000 from the posterior distribution of the robust MAP prior. 
+```{r}
 wEB(obj1, -53)
+
+rmap_c <- robustify(map_hat, weight = 0.12, mean = -50, n=1, sigma = sigma)
+postmix_rmap_c <- postmix(rmap_c, n = 50, m = -53)
+post_rmap_c <- rmix(mix = postmix_rmap_c, n = 20000)
 ```
 
+The treatment arm in the current trial will not be augmented by historical data. We therefore use the same vague prior in the rMAP prior for its mean response, and also draw a posterior sample of size 20,000. 
+```{r}
+prior_t <- mixnorm(c(1, -50, 1), sigma=sigma, param="mn")
+postmix_t <- postmix(prior_t, n = 100, m = -80)
+post_t <- rmix(mix = postmix_t, n = 20000)
+```
+
+Finally, the decision rule to claim trial success is $Pr(\mu_T-\mu_C<0|data)>0.95$. This can be evaluated by the following codes. Since the posterior probability 0.987 exceeds the cutoff 0.95, a trial success can be called. 
+```{r}
+diff_sample <- post_t - post_rmap_c
+mean(diff_sample < 0)
+```
 
 ## References
 [1] Weber, S., Li, Y., Seaman III, J. W., Kakizume, T., & Schmidli, H. (2021). Applying Meta-Analytic-Predictive Priors with the R Bayesian Evidence Synthesis Tools. *Journal of Statistical Software*, 100, 1-32.
