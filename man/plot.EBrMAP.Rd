@@ -4,10 +4,12 @@
 \alias{plot.EBrMAP}
 \title{Plot an EBrMAP Object}
 \usage{
-\method{plot}{EBrMAP}(obj)
+\method{plot}{EBrMAP}(x, ...)
 }
 \arguments{
-\item{obj}{"EBrMAP" class object returned by `EB_rMAP` function}
+\item{x}{"EBrMAP" class object returned by `EB_rMAP` function}
+
+\item{...}{Ignored}
 }
 \value{
 A ggplot2 object which can be further customized

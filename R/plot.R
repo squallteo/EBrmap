@@ -4,6 +4,7 @@
 #' Plot EB-rMAP weight against various observed response in the current trial
 #'
 #' @param x "EBrMAP" class object returned by `EB_rMAP` function
+#' @param ... Ignored
 #'
 #' @returns
 #' A ggplot2 object which can be further customized

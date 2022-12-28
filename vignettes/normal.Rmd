@@ -1,7 +1,7 @@
 ---
 title: "EB-rMAP Prior with a Normal Endpoint"
 author: "Hongtao Zhang"
-date: "12/05/2022"
+date: "12/15/2022"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{EB-rMAP Prior with a Normal Endpoint}
@@ -20,7 +20,11 @@ We demonstrate the usage of EB-rMAP when a normal endpoint is considered. The st
 
 ## Historical Data and the MAP Prior
 The historical data to construct the MAP prior are from dataset *`crohn`* in *RBesT* package [1]. The data contain six historical trials in moderate to severe Crohn's disease. The normal endpoint is the change from baseline in Crohn's Disease Activity Index (CDAI) at week 6, for which a smaller negative value indicates a better response. The common standard deviation of the endpoint $\sigma$ is fixed at 88. A random effect meta-analysis yields a point estimate of -50 for the mean response, with 95\% confidence interval (-61.7, -38.1). 
-```{r}
+```{r, warning=F}
+library(RBesT)
+library(tidyverse)
+library(EBrmap)
+
 dt <- RBesT::crohn
 sigma <- 88
 dt$se_yh <- sigma/sqrt(dt$n)
@@ -34,16 +38,16 @@ The vauge prior to construct the robust MAP prior is a normal distribution with 
 For detailed specifications, refer to Section 3.1 of Zhang et al. [2] 
 ```{r, eval=T}
 set.seed(712)
-map_mcmc <- RBesT::gMAP(cbind(y, se_yh) ~ 1 | study, 
-                        weight = n,
-                        data=dt,
-                        family=gaussian,
-                        beta.prior=cbind(0, sigma),
-                        tau.dist="HalfNormal",tau.prior=cbind(0,sigma/2))
-map_hat <- RBesT::automixfit(map_mcmc)
-RBesT::sigma(map_hat) <- sigma
+map_mcmc <- gMAP(cbind(y, se_yh) ~ 1 | study,
+                 weight = n,
+                 data=dt,
+                 family=gaussian,
+                 beta.prior=cbind(0, sigma),
+                 tau.dist="HalfNormal",tau.prior=cbind(0,sigma/2))
+map_hat <- automixfit(map_mcmc)
+sigma(map_hat) <- sigma
 
-vague_prior <- RBesT::mixnorm(c(1, -50, 1), sigma=sigma, param="mn")
+vague_prior <- mixnorm(c(1, -50, 1), sigma=sigma, param="mn")
 
 print(map_hat)
 print(vague_prior)
@@ -51,17 +55,7 @@ print(vague_prior)
 
 ## EB-rMAP Prior
 We design a current two-arm trial with sample sizes in control and treatment arms respectively at $n_C=50$ and $n_T=100$. The general principle is to evaluate the EB-rMAP weight $w_{EB}$ within a reasonably wide range of observed mean response $\bar{y}_C$. In this case study, we set the range to be -80 to -20, which is even wider than the 95% confidence interval by the meta analysis, and thus should yield a comprehensive view of the behavior of $w_{EB}$ across various scenarios. We first set $\gamma$ at 0.85 and plot. *`EB_rMAP`* is the function that implements the EB-rMAP prior method. 
-```{r, eval=T, echo=T, warning=FALSE}
-# library(EBrmap)
-library(RBesT)
-library(tidyverse)
-library(ggplot2)
-
-source("~/GitHubProject/EBrmap/R/EB_rMAP.R")
-source("~/GitHubProject/EBrmap/R/wEB.R")
-source("~/GitHubProject/EBrmap/R/plot.R")
-
-
+```{r, eval=T, echo=T}
 obj1 <- EB_rMAP(map_hat, vague_prior, ppp_cut=0.85, n=100, y_range=c(-80, -20))
 ```
 ```{r, fig.width=6, fig.fullwidth=TRUE}
@@ -113,6 +107,6 @@ mean(diff_sample < 0)
 ```
 
 ## References
-[1] Weber, S., Li, Y., Seaman III, J. W., Kakizume, T., & Schmidli, H. (2021). Applying Meta-Analytic-Predictive Priors with the R Bayesian Evidence Synthesis Tools. *Journal of Statistical Software*, 100, 1-32.
+[1] Weber, S., Li, Y., Seaman III, J. W., Kakizume, T., Schmidli, H. (2021). Applying Meta-Analytic-Predictive Priors with the R Bayesian Evidence Synthesis Tools. *Journal of Statistical Software*, 100, 1-32.
 
 [2] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2022+) Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes. *Pharmaceutical Statistics*
