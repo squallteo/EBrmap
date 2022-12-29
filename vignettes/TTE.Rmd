@@ -71,7 +71,7 @@ adt %>% kbl(caption="Aggregated Data Through Year 1.5") %>%
 ```
 
 The random effect meta-analysis yields a point estimate of 0.38, and the 95% CI is (0.282, 0.510). 
-```{r}
+```{r, eval=FALSE}
 meta::metarate(NEvent, TotExp, Trial, data=adt[1:9,])
 ```
 
