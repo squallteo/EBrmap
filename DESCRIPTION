@@ -12,3 +12,4 @@ Imports: RBesT, assertthat, ggplot2, dplyr, tibble, magrittr, tidyverse
 Suggests: rmarkdown, knitr, kableExtra
 VignetteBuilder: knitr
 RoxygenNote: 7.2.2
+URL: https://squallteo.github.io/EBrmap/
