@@ -133,6 +133,6 @@ Edt %>% kbl(caption="Total Exposure (in Years)") %>%
 
 
 ## References
-[1] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2022+) Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes. *Pharmaceutical Statistics*
+[1] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2022+) Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes. 
 
 [2] Roychoudhury, S., Neuenschwander, B. (2020). Bayesian leveraging of historical control data for a clinical trial with time-to-event en *Statistics in Medicine*, 39(7), 984-995.

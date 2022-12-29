@@ -109,4 +109,4 @@ mean(diff_sample < 0)
 ## References
 [1] Weber, S., Li, Y., Seaman III, J. W., Kakizume, T., Schmidli, H. (2021). Applying Meta-Analytic-Predictive Priors with the R Bayesian Evidence Synthesis Tools. *Journal of Statistical Software*, 100, 1-32.
 
-[2] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2022+) Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes. *Pharmaceutical Statistics*
+[2] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2022+) Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes. 

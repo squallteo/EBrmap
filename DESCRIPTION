@@ -4,7 +4,7 @@ Title: Robust Meta-Analytical-Predictive Prior with Empirical Bayes
 Version: 0.1.0
 Author: Hongtao Zhang
 Maintainer: Hongtao Zhang <squallteo@gmail.com>
-Description: An R package to implement the empirical Bayes robust meta-analytical-predictive prior (EB-rMAP) by Zhang et al (2022+) <ADD LINK>.
+Description: An R package to implement the empirical Bayes robust meta-analytical-predictive prior (EB-rMAP) by Zhang et al (2022+).
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
