@@ -100,7 +100,7 @@ postmix_t <- postmix(prior_t, n = 100, m = -80)
 post_t <- rmix(mix = postmix_t, n = 20000)
 ```
 
-Finally, the decision rule to claim trial success is $Pr(\mu_T-\mu_C<0|data)>0.95$. This can be evaluated by the following codes. Since the posterior probability 0.987 exceeds the cutoff 0.95, a trial success can be called. 
+Finally, the decision rule to claim trial success is $Pr(\theta_T-\theta_C<0|data)>0.95$. This can be evaluated by the following codes. Since the posterior probability 0.987 exceeds the cutoff 0.95, a trial success can be called. 
 ```{r}
 diff_sample <- post_t - post_rmap_c
 mean(diff_sample < 0)
@@ -109,4 +109,4 @@ mean(diff_sample < 0)
 ## References
 [1] Weber, S., Li, Y., Seaman III, J. W., Kakizume, T., Schmidli, H. (2021). Applying Meta-Analytic-Predictive Priors with the R Bayesian Evidence Synthesis Tools. *Journal of Statistical Software*, 100, 1-32.
 
-[2] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2022+) Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes. 
+[2] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2023+) Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes. 

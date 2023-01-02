@@ -15,4 +15,4 @@ devtools::install_github("squallteo/EBrmap")
 See vignettes for use cases. 
 
 ## References
-[1] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2022+) Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes. 
+[1] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2023+) Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes. 
