@@ -110,7 +110,7 @@ plotdt %>%
   scale_color_discrete(name="Gamma")
 ```
 
-We can immediately see that the choice of $\gamma=0.95$ might be too stringent, as the weight is close to 1 even when the observed hazard rate in the current trial is close to historical mean hazard rate. After the initial screen, both $\gamma=$0.9 and 0.85 appear to be reasonable choices. We recommend further evaluation via simulation studies in real applications. For illustration purposes, we proceed with $\gamma=0.9$. 
+We can immediately see that the choice of $\gamma=0.95$ might be too stringent, as the weight is close to 1 even when the observed hazard rate in the current trial is close to historical mean hazard rate. After the initial screen, both $\gamma=0.9$ and 0.85 appear to be reasonable choices. We recommend further evaluation via simulation studies in real applications. For illustration purposes, we proceed with $\gamma=0.9$. 
 
 Suppose that we observe 32 events in the new trial, the corresponding $w_{EB}$ is 0.5.
 ```{r}
