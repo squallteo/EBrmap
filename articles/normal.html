@@ -337,9 +337,10 @@ for its mean response, and also draw a posterior sample of size
 <span><span class="va">postmix_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/postmix.html" class="external-link">postmix</a></span><span class="op">(</span><span class="va">prior_t</span>, n <span class="op">=</span> <span class="fl">100</span>, m <span class="op">=</span> <span class="op">-</span><span class="fl">80</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using default prior reference scale 88</span></span>
 <span><span class="va">post_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/mix.html" class="external-link">rmix</a></span><span class="op">(</span>mix <span class="op">=</span> <span class="va">postmix_t</span>, n <span class="op">=</span> <span class="fl">20000</span><span class="op">)</span></span></code></pre></div>
-<p>Finally, the decision rule to claim trial success is <span class="math inline">\(Pr(\mu_T-\mu_C&lt;0|data)&gt;0.95\)</span>. This
-can be evaluated by the following codes. Since the posterior probability
-0.987 exceeds the cutoff 0.95, a trial success can be called.</p>
+<p>Finally, the decision rule to claim trial success is <span class="math inline">\(Pr(\theta_T-\theta_C&lt;0|data)&gt;0.95\)</span>.
+This can be evaluated by the following codes. Since the posterior
+probability 0.987 exceeds the cutoff 0.95, a trial success can be
+called.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diff_sample</span> <span class="op">&lt;-</span> <span class="va">post_t</span> <span class="op">-</span> <span class="va">post_rmap_c</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">diff_sample</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span></span>
@@ -352,7 +353,7 @@ can be evaluated by the following codes. Since the posterior probability
 (2021). Applying Meta-Analytic-Predictive Priors with the R Bayesian
 Evidence Synthesis Tools. <em>Journal of Statistical Software</em>, 100,
 1-32.</p>
-<p>[2] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2022+) Adaptively
+<p>[2] Zhang, H., Shen, Y., Chiang, AY., Li, J. (2023+) Adaptively
 Leveraging External Data with Robust Meta-Analytical-Predictive Prior
 Using Empirical Bayes.</p>
 </div>
