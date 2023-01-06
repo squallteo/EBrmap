@@ -327,9 +327,11 @@ mean with the meta-analysis but the effective sample size is only 1.</p>
 <span><span class="co">#&gt; b 1.00</span></span></code></pre></div>
 <p>Suppose that we are designing a new single arm trial, augmented by
 the historical data via the robust MAP prior. The projected total
-exposure in the current trial is 117.6 years. We examine the behavior of
-EB-rMAP weight correspoding to <span class="math inline">\(\gamma
-=\)</span> 0.85, 0.9 and 0.95 respectively.</p>
+exposure in the current trial is 117.6 years. Note that there are
+various software packages that may facilitate estimating this quantity
+via simulation, such as EAST and <a href="https://merck.github.io/simtrial/index.html" class="external-link"><em>simtrial</em></a>
+package. We examine the behavior of EB-rMAP weight correspoding to <span class="math inline">\(\gamma =\)</span> 0.85, 0.9 and 0.95
+respectively.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">117.6</span></span>
