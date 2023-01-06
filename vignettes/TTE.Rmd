@@ -88,7 +88,7 @@ map_mcmc <- gMAP(NEvent ~ 1 + offset(log(TotExp)) | Trial, data = histdt, family
 (vague_prior <- mixgamma(c(1, 0.38, 1), param = "mn"))
 ```
 
-Suppose that we are designing a new single arm trial, augmented by the historical data via the robust MAP prior. The projected total exposure in the current trial is 117.6 years. We examine the behavior of EB-rMAP weight correspoding to $\gamma =$ 0.85, 0.9 and 0.95 respectively. 
+Suppose that we are designing a new single arm trial, augmented by the historical data via the robust MAP prior. The projected total exposure in the current trial is 117.6 years. Note that there are various software packages that may facilitate estimating this quantity via simulation, such as EAST and [*simtrial*](https://merck.github.io/simtrial/index.html) package. We examine the behavior of EB-rMAP weight correspoding to $\gamma =$ 0.85, 0.9 and 0.95 respectively. 
 ```{r}
 y_range <- c(0, 50)
 n <- 117.6

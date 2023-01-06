@@ -4,7 +4,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The package implements the empirical Bayes robust meta-analytical-predictive (EB-rMAP) prior by Zhang et al (2022+) [1]. 
+The package implements the empirical Bayes robust meta-analytical-predictive (EB-rMAP) prior by Zhang et al (2023+) [1]. 
 
 You can install the package from GitHub with:
 ``` r
