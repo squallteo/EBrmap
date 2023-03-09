@@ -20,7 +20,7 @@ In this vignette, we showcase how the EB-rMAP method can be implemented when a t
 
 ## Data
 The data in 10 oncology studies come from Roychoudhury and Neueuschwander (2020) [2]. In each study, the four-year follow-up period was partitioned into 12 intervals, and the number of events and total exposure (follow-up) time in years were recorded. For illustration purposes, the first 9 trials are regarded as historical trials, while the 10th trial is considered the current trial. The full data is displayed in the Appendix. We aggregate the data between year 0 and 1.5 to implement the EB-rMAP method for the log hazard rates. 
-```{r, warning=F}
+```{r, warning=F, message=FALSE}
 library(RBesT)
 library(tidyverse)
 library(knitr)

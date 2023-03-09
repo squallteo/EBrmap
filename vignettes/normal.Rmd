@@ -20,7 +20,7 @@ We demonstrate the usage of EB-rMAP when a normal endpoint is considered. The st
 
 ## Historical Data and the MAP Prior
 The historical data to construct the MAP prior are from dataset *`crohn`* in *RBesT* package [1]. The data contain six historical trials in moderate to severe Crohn's disease. The normal endpoint is the change from baseline in Crohn's Disease Activity Index (CDAI) at week 6, for which a smaller negative value indicates a better response. The common standard deviation of the endpoint $\sigma$ is fixed at 88. A random effect meta-analysis yields a point estimate of -50 for the mean response, with 95\% confidence interval (-61.7, -38.1). 
-```{r, warning=F}
+```{r, warning=F, message=FALSE}
 library(RBesT)
 library(tidyverse)
 library(EBrmap)
