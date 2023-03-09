@@ -90,26 +90,10 @@ the 10th trial is considered the current trial. The full data is
 displayed in the Appendix. We aggregate the data between year 0 and 1.5
 to implement the EB-rMAP method for the log hazard rates.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">RBesT</span><span class="op">)</span></span>
-<span><span class="co">#&gt; This is RBesT version 1.6.4</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://opensource.nibr.com/RBesT/" class="external-link">RBesT</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">Attaching packages</span> ─────────────────────────────────────── tidyverse</span></span>
-<span><span class="co">#&gt; 1.3.2 ──</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">ggplot2</span> 3.4.0     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr  </span> 1.0.1</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble </span> 3.1.8     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr  </span> 1.1.0</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr  </span> 1.3.0     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">stringr</span> 1.5.0</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">readr  </span> 2.1.3     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">forcats</span> 1.0.0</span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">Conflicts</span> ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span> masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>    masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/" class="external-link">kableExtra</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'kableExtra'</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:dplyr':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     group_rows</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://squallteo.github.io/EBrmap/">EBrmap</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">712</span><span class="op">)</span></span>
@@ -289,7 +273,7 @@ the 95% CI is (0.282, 0.510).</p>
 <div class="section level2">
 <h2 id="map-prior-and-eb-rmap-prior">MAP Prior and EB-rMAP Prior<a class="anchor" aria-label="anchor" href="#map-prior-and-eb-rmap-prior"></a>
 </h2>
-<p>The MAP prior is derived using the <em><code><a href="https://rdrr.io/pkg/RBesT/man/gMAP.html" class="external-link">RBesT::gMAP</a></code></em>
+<p>The MAP prior is derived using the <em><code><a href="https://opensource.nibr.com/RBesT/reference/gMAP.html" class="external-link">RBesT::gMAP</a></code></em>
 command via a Poisson regression. It is critical to specify the log
 total exposure as the offset of the model. We use the same
 specifications in section 4 of Zhang et al. [1]: a <span class="math inline">\(N(0,10^2)\)</span> hyper-prior for the overall
@@ -303,10 +287,10 @@ mean with the meta-analysis but the effective sample size is only 1.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">histdt</span> <span class="op">&lt;-</span> <span class="va">adt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>,<span class="op">]</span></span>
 <span></span>
-<span><span class="va">map_mcmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/gMAP.html" class="external-link">gMAP</a></span><span class="op">(</span><span class="va">NEvent</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/offset.html" class="external-link">offset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">TotExp</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span> <span class="va">Trial</span>, data <span class="op">=</span> <span class="va">histdt</span>, family <span class="op">=</span> <span class="va">poisson</span>, </span>
+<span><span class="va">map_mcmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/gMAP.html" class="external-link">gMAP</a></span><span class="op">(</span><span class="va">NEvent</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/offset.html" class="external-link">offset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">TotExp</span><span class="op">)</span><span class="op">)</span> <span class="op">|</span> <span class="va">Trial</span>, data <span class="op">=</span> <span class="va">histdt</span>, family <span class="op">=</span> <span class="va">poisson</span>, </span>
 <span>                 tau.dist <span class="op">=</span> <span class="st">"HalfNormal"</span>, tau.prior <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,</span>
 <span>                 beta.prior<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">(</span><span class="va">map_hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/automixfit.html" class="external-link">automixfit</a></span><span class="op">(</span><span class="va">map_mcmc</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">map_hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/automixfit.html" class="external-link">automixfit</a></span><span class="op">(</span><span class="va">map_mcmc</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; EM for Gamma Mixture Model</span></span>
 <span><span class="co">#&gt; Log-Likelihood = 1447.221</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -317,7 +301,7 @@ mean with the meta-analysis but the effective sample size is only 1.</p>
 <span><span class="co">#&gt; a  7.9655739  2.3129948</span></span>
 <span><span class="co">#&gt; b 21.3824889  3.7639130</span></span>
 <span></span>
-<span><span class="op">(</span><span class="va">vague_prior</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/mixgamma.html" class="external-link">mixgamma</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.38</span>, <span class="fl">1</span><span class="op">)</span>, param <span class="op">=</span> <span class="st">"mn"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">vague_prior</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/mixgamma.html" class="external-link">mixgamma</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.38</span>, <span class="fl">1</span><span class="op">)</span>, param <span class="op">=</span> <span class="st">"mn"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Univariate Gamma mixture</span></span>
 <span><span class="co">#&gt; Mixture Components:</span></span>
 <span><span class="co">#&gt;   comp1</span></span>
@@ -369,8 +353,8 @@ and derive the posterior distribution. Further Bayesian estimation and
 inference will be based on the posterior distribution, which is also a
 weighted mixture of Gamma distributions.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/robustify.html" class="external-link">robustify</a></span><span class="op">(</span><span class="va">map_hat</span>, weight<span class="op">=</span><span class="fl">0.5</span>, mean<span class="op">=</span><span class="fl">0.38</span>, n<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="op">(</span><span class="va">postmix_rmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/postmix.html" class="external-link">postmix</a></span><span class="op">(</span><span class="va">rmap</span>, n <span class="op">=</span> <span class="va">adt</span><span class="op">$</span><span class="va">TotExp</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span> , m <span class="op">=</span> <span class="va">adt</span><span class="op">$</span><span class="va">NEvent</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span><span class="op">/</span><span class="va">adt</span><span class="op">$</span><span class="va">TotExp</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">rmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/robustify.html" class="external-link">robustify</a></span><span class="op">(</span><span class="va">map_hat</span>, weight<span class="op">=</span><span class="fl">0.5</span>, mean<span class="op">=</span><span class="fl">0.38</span>, n<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">postmix_rmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/postmix.html" class="external-link">postmix</a></span><span class="op">(</span><span class="va">rmap</span>, n <span class="op">=</span> <span class="va">adt</span><span class="op">$</span><span class="va">TotExp</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span> , m <span class="op">=</span> <span class="va">adt</span><span class="op">$</span><span class="va">NEvent</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span><span class="op">/</span><span class="va">adt</span><span class="op">$</span><span class="va">TotExp</span><span class="op">[</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Univariate Gamma mixture</span></span>
 <span><span class="co">#&gt; Mixture Components:</span></span>
 <span><span class="co">#&gt;   comp1        comp2        robust      </span></span>

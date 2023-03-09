@@ -89,21 +89,11 @@ better response. The common standard deviation of the endpoint <span class="math
 meta-analysis yields a point estimate of -50 for the mean response, with
 95% confidence interval (-61.7, -38.1).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">RBesT</span><span class="op">)</span></span>
-<span><span class="co">#&gt; This is RBesT version 1.6.4</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://opensource.nibr.com/RBesT/" class="external-link">RBesT</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">Attaching packages</span> ─────────────────────────────────────── tidyverse</span></span>
-<span><span class="co">#&gt; 1.3.2 ──</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">ggplot2</span> 3.4.0     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">purrr  </span> 1.0.1</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tibble </span> 3.1.8     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">dplyr  </span> 1.1.0</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">tidyr  </span> 1.3.0     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">stringr</span> 1.5.0</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">readr  </span> 2.1.3     <span style="color: #00BB00;">✔</span> <span style="color: #0000BB;">forcats</span> 1.0.0</span></span>
-<span><span class="co">#&gt; ── <span style="font-weight: bold;">Conflicts</span> ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">filter()</span> masks <span style="color: #0000BB;">stats</span>::filter()</span></span>
-<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>    masks <span style="color: #0000BB;">stats</span>::lag()</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://squallteo.github.io/EBrmap/">EBrmap</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu">RBesT</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/RBesT/man/crohn.html" class="external-link">crohn</a></span></span>
+<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu">RBesT</span><span class="fu">::</span><span class="va"><a href="https://opensource.nibr.com/RBesT/reference/crohn.html" class="external-link">crohn</a></span></span>
 <span><span class="va">sigma</span> <span class="op">&lt;-</span> <span class="fl">88</span></span>
 <span><span class="va">dt</span><span class="op">$</span><span class="va">se_yh</span> <span class="op">&lt;-</span> <span class="va">sigma</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">dt</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
 <span><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">dt</span><span class="op">)</span></span></code></pre></div>
@@ -209,30 +199,30 @@ Gastr01b
 </tr>
 </tbody>
 </table>
-<p>The MAP prior is derived using the <em><code><a href="https://rdrr.io/pkg/RBesT/man/gMAP.html" class="external-link">RBesT::gMAP</a></code></em>
+<p>The MAP prior is derived using the <em><code><a href="https://opensource.nibr.com/RBesT/reference/gMAP.html" class="external-link">RBesT::gMAP</a></code></em>
 command, which is subsequently approximated by a mixture of three
 conjugate normal distributions with
-<em><code><a href="https://rdrr.io/pkg/RBesT/man/automixfit.html" class="external-link">RBesT::automixfit</a></code></em> command.</p>
+<em><code><a href="https://opensource.nibr.com/RBesT/reference/automixfit.html" class="external-link">RBesT::automixfit</a></code></em> command.</p>
 <p>The vauge prior to construct the robust MAP prior is a normal
 distribution with mean -50 and effective sample size of 1. This can be
 specified using the <code>mn</code> parameterization in
-<em><code><a href="https://rdrr.io/pkg/RBesT/man/mixnorm.html" class="external-link">RBesT::mixnorm</a></code></em>. Note that the hyper-parameters are
+<em><code><a href="https://opensource.nibr.com/RBesT/reference/mixnorm.html" class="external-link">RBesT::mixnorm</a></code></em>. Note that the hyper-parameters are
 automatically converted to <code>ms</code> parameterization
 corresponding to mean and standard deviation.</p>
 <p>For detailed specifications, refer to Section 3.1 of Zhang et
 al. [2]</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">712</span><span class="op">)</span></span>
-<span><span class="va">map_mcmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/gMAP.html" class="external-link">gMAP</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">se_yh</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">study</span>,</span>
+<span><span class="va">map_mcmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/gMAP.html" class="external-link">gMAP</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">se_yh</span><span class="op">)</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">study</span>,</span>
 <span>                 weight <span class="op">=</span> <span class="va">n</span>,</span>
 <span>                 data<span class="op">=</span><span class="va">dt</span>,</span>
 <span>                 family<span class="op">=</span><span class="va">gaussian</span>,</span>
 <span>                 beta.prior<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">sigma</span><span class="op">)</span>,</span>
 <span>                 tau.dist<span class="op">=</span><span class="st">"HalfNormal"</span>,tau.prior<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">sigma</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">map_hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/automixfit.html" class="external-link">automixfit</a></span><span class="op">(</span><span class="va">map_mcmc</span><span class="op">)</span></span>
+<span><span class="va">map_hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/automixfit.html" class="external-link">automixfit</a></span><span class="op">(</span><span class="va">map_mcmc</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/sigma.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">map_hat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">sigma</span></span>
 <span></span>
-<span><span class="va">vague_prior</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/mixnorm.html" class="external-link">mixnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">50</span>, <span class="fl">1</span><span class="op">)</span>, sigma<span class="op">=</span><span class="va">sigma</span>, param<span class="op">=</span><span class="st">"mn"</span><span class="op">)</span></span>
+<span><span class="va">vague_prior</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/mixnorm.html" class="external-link">mixnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">50</span>, <span class="fl">1</span><span class="op">)</span>, sigma<span class="op">=</span><span class="va">sigma</span>, param<span class="op">=</span><span class="st">"mn"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">map_hat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; EM for Normal Mixture Model</span></span>
@@ -242,9 +232,9 @@ al. [2]</p>
 <span><span class="co">#&gt; Reference scale: 88</span></span>
 <span><span class="co">#&gt; Mixture Components:</span></span>
 <span><span class="co">#&gt;   comp1        comp2        comp3        comp4       </span></span>
-<span><span class="co">#&gt; w   0.48262631   0.41389188   0.06790129   0.03558051</span></span>
-<span><span class="co">#&gt; m -46.68514069 -51.27537132 -63.24089949 -53.49794729</span></span>
-<span><span class="co">#&gt; s   7.85276294  24.99653411   7.81927603  53.01822452</span></span>
+<span><span class="co">#&gt; w   0.48262610   0.41389189   0.06790148   0.03558052</span></span>
+<span><span class="co">#&gt; m -46.68513756 -51.27537075 -63.24087734 -53.49794772</span></span>
+<span><span class="co">#&gt; s   7.85276132  24.99653345   7.81928574  53.01822291</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">vague_prior</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Univariate normal mixture</span></span>
 <span><span class="co">#&gt; Reference scale: 88</span></span>
@@ -323,19 +313,19 @@ distribution of the robust MAP prior.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/wEB.html">wEB</a></span><span class="op">(</span><span class="va">obj1</span>, <span class="op">-</span><span class="fl">53</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.11</span></span>
 <span></span>
-<span><span class="va">rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/robustify.html" class="external-link">robustify</a></span><span class="op">(</span><span class="va">map_hat</span>, weight <span class="op">=</span> <span class="fl">0.12</span>, mean <span class="op">=</span> <span class="op">-</span><span class="fl">50</span>, n<span class="op">=</span><span class="fl">1</span>, sigma <span class="op">=</span> <span class="va">sigma</span><span class="op">)</span></span>
-<span><span class="va">postmix_rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/postmix.html" class="external-link">postmix</a></span><span class="op">(</span><span class="va">rmap_c</span>, n <span class="op">=</span> <span class="fl">50</span>, m <span class="op">=</span> <span class="op">-</span><span class="fl">53</span><span class="op">)</span></span>
+<span><span class="va">rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/robustify.html" class="external-link">robustify</a></span><span class="op">(</span><span class="va">map_hat</span>, weight <span class="op">=</span> <span class="fl">0.12</span>, mean <span class="op">=</span> <span class="op">-</span><span class="fl">50</span>, n<span class="op">=</span><span class="fl">1</span>, sigma <span class="op">=</span> <span class="va">sigma</span><span class="op">)</span></span>
+<span><span class="va">postmix_rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/postmix.html" class="external-link">postmix</a></span><span class="op">(</span><span class="va">rmap_c</span>, n <span class="op">=</span> <span class="fl">50</span>, m <span class="op">=</span> <span class="op">-</span><span class="fl">53</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using default prior reference scale 88</span></span>
-<span><span class="va">post_rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/mix.html" class="external-link">rmix</a></span><span class="op">(</span>mix <span class="op">=</span> <span class="va">postmix_rmap_c</span>, n <span class="op">=</span> <span class="fl">20000</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">post_rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/mix.html" class="external-link">rmix</a></span><span class="op">(</span>mix <span class="op">=</span> <span class="va">postmix_rmap_c</span>, n <span class="op">=</span> <span class="fl">20000</span><span class="op">)</span></span></code></pre></div>
 <p>The treatment arm in the current trial will not be augmented by
 historical data. We therefore use the same vague prior in the rMAP prior
 for its mean response, and also draw a posterior sample of size
 20,000.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">prior_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/mixnorm.html" class="external-link">mixnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">50</span>, <span class="fl">1</span><span class="op">)</span>, sigma<span class="op">=</span><span class="va">sigma</span>, param<span class="op">=</span><span class="st">"mn"</span><span class="op">)</span></span>
-<span><span class="va">postmix_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/postmix.html" class="external-link">postmix</a></span><span class="op">(</span><span class="va">prior_t</span>, n <span class="op">=</span> <span class="fl">100</span>, m <span class="op">=</span> <span class="op">-</span><span class="fl">80</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">prior_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/mixnorm.html" class="external-link">mixnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">50</span>, <span class="fl">1</span><span class="op">)</span>, sigma<span class="op">=</span><span class="va">sigma</span>, param<span class="op">=</span><span class="st">"mn"</span><span class="op">)</span></span>
+<span><span class="va">postmix_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/postmix.html" class="external-link">postmix</a></span><span class="op">(</span><span class="va">prior_t</span>, n <span class="op">=</span> <span class="fl">100</span>, m <span class="op">=</span> <span class="op">-</span><span class="fl">80</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using default prior reference scale 88</span></span>
-<span><span class="va">post_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RBesT/man/mix.html" class="external-link">rmix</a></span><span class="op">(</span>mix <span class="op">=</span> <span class="va">postmix_t</span>, n <span class="op">=</span> <span class="fl">20000</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">post_t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/mix.html" class="external-link">rmix</a></span><span class="op">(</span>mix <span class="op">=</span> <span class="va">postmix_t</span>, n <span class="op">=</span> <span class="fl">20000</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, the decision rule to claim trial success is <span class="math inline">\(Pr(\theta_T-\theta_C&lt;0|data)&gt;0.95\)</span>.
 This can be evaluated by the following codes. Since the posterior
 probability 0.987 exceeds the cutoff 0.95, a trial success can be
