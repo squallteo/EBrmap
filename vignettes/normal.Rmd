@@ -86,10 +86,10 @@ The generated plot is a useful tool to conduct an initial screen of $\gamma$ val
 ## Inference with Observed Current Trial Data
 Bayesian inference based on posterior probabilities can be drawn after the new trial is concluded and the mean responses $\bar{y}_C$ and $\bar{y}_T$ are observed. Suppose that $\bar{y}_C$ and $\bar{y}_T$ are -53 and -80, respectively. The *`wEB`* function returns the EB-rMAP weight $w_{EB}$ corresponding to an observed mean response $\bar{y}_C$. This weight will be used to build the robust MAP prior for the control mean responses. We draw a sample of size 20,000 from the posterior distribution of the robust MAP prior. 
 ```{r}
-wEB(obj1, -53)
+(w <- wEB(obj1, -53))
 
-rmap_c <- robustify(map_hat, weight = 0.12, mean = -50, n=1, sigma = sigma)
-postmix_rmap_c <- postmix(rmap_c, n = 50, m = -53)
+(rmap_c <- robustify(map_hat, weight = w, mean = -50, n=1, sigma = sigma))
+(postmix_rmap_c <- postmix(rmap_c, n = 50, m = -53))
 post_rmap_c <- rmix(mix = postmix_rmap_c, n = 20000)
 ```
 
