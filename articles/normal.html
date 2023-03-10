@@ -310,12 +310,26 @@ will be used to build the robust MAP prior for the control mean
 responses. We draw a sample of size 20,000 from the posterior
 distribution of the robust MAP prior.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/wEB.html">wEB</a></span><span class="op">(</span><span class="va">obj1</span>, <span class="op">-</span><span class="fl">53</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wEB.html">wEB</a></span><span class="op">(</span><span class="va">obj1</span>, <span class="op">-</span><span class="fl">53</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.11</span></span>
 <span></span>
-<span><span class="va">rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/robustify.html" class="external-link">robustify</a></span><span class="op">(</span><span class="va">map_hat</span>, weight <span class="op">=</span> <span class="fl">0.12</span>, mean <span class="op">=</span> <span class="op">-</span><span class="fl">50</span>, n<span class="op">=</span><span class="fl">1</span>, sigma <span class="op">=</span> <span class="va">sigma</span><span class="op">)</span></span>
-<span><span class="va">postmix_rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/postmix.html" class="external-link">postmix</a></span><span class="op">(</span><span class="va">rmap_c</span>, n <span class="op">=</span> <span class="fl">50</span>, m <span class="op">=</span> <span class="op">-</span><span class="fl">53</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/robustify.html" class="external-link">robustify</a></span><span class="op">(</span><span class="va">map_hat</span>, weight <span class="op">=</span> <span class="va">w</span>, mean <span class="op">=</span> <span class="op">-</span><span class="fl">50</span>, n<span class="op">=</span><span class="fl">1</span>, sigma <span class="op">=</span> <span class="va">sigma</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Univariate normal mixture</span></span>
+<span><span class="co">#&gt; Reference scale: 88</span></span>
+<span><span class="co">#&gt; Mixture Components:</span></span>
+<span><span class="co">#&gt;   comp1        comp2        comp3        comp4        robust      </span></span>
+<span><span class="co">#&gt; w   0.42953723   0.36836378   0.06043232   0.03166666   0.11000000</span></span>
+<span><span class="co">#&gt; m -46.68513756 -51.27537075 -63.24087734 -53.49794772 -50.00000000</span></span>
+<span><span class="co">#&gt; s   7.85276132  24.99653345   7.81928574  53.01822291  88.00000000</span></span>
+<span><span class="op">(</span><span class="va">postmix_rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/postmix.html" class="external-link">postmix</a></span><span class="op">(</span><span class="va">rmap_c</span>, n <span class="op">=</span> <span class="fl">50</span>, m <span class="op">=</span> <span class="op">-</span><span class="fl">53</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using default prior reference scale 88</span></span>
+<span><span class="co">#&gt; Univariate normal mixture</span></span>
+<span><span class="co">#&gt; Reference scale: 88</span></span>
+<span><span class="co">#&gt; Mixture Components:</span></span>
+<span><span class="co">#&gt;   comp1        comp2        comp3        comp4        robust      </span></span>
+<span><span class="co">#&gt; w   0.59380430   0.29368965   0.07194565   0.01296934   0.02759105</span></span>
+<span><span class="co">#&gt; m -48.48342373 -52.65742172 -60.34236670 -53.02600372 -52.94117647</span></span>
+<span><span class="co">#&gt; s   6.64117806  11.14068322   6.62089251  12.11577029  12.32246474</span></span>
 <span><span class="va">post_rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/mix.html" class="external-link">rmix</a></span><span class="op">(</span>mix <span class="op">=</span> <span class="va">postmix_rmap_c</span>, n <span class="op">=</span> <span class="fl">20000</span><span class="op">)</span></span></code></pre></div>
 <p>The treatment arm in the current trial will not be augmented by
 historical data. We therefore use the same vague prior in the rMAP prior
@@ -333,7 +347,7 @@ called.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">diff_sample</span> <span class="op">&lt;-</span> <span class="va">post_t</span> <span class="op">-</span> <span class="va">post_rmap_c</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">diff_sample</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.98675</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.9869</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
