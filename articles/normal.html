@@ -232,9 +232,9 @@ al. [2]</p>
 <span><span class="co">#&gt; Reference scale: 88</span></span>
 <span><span class="co">#&gt; Mixture Components:</span></span>
 <span><span class="co">#&gt;   comp1        comp2        comp3        comp4       </span></span>
-<span><span class="co">#&gt; w   0.48262631   0.41389188   0.06790129   0.03558051</span></span>
-<span><span class="co">#&gt; m -46.68514069 -51.27537132 -63.24089949 -53.49794729</span></span>
-<span><span class="co">#&gt; s   7.85276294  24.99653411   7.81927603  53.01822452</span></span>
+<span><span class="co">#&gt; w   0.48262610   0.41389189   0.06790148   0.03558052</span></span>
+<span><span class="co">#&gt; m -46.68513756 -51.27537075 -63.24087734 -53.49794772</span></span>
+<span><span class="co">#&gt; s   7.85276132  24.99653345   7.81928574  53.01822291</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">vague_prior</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Univariate normal mixture</span></span>
 <span><span class="co">#&gt; Reference scale: 88</span></span>
@@ -321,18 +321,18 @@ distribution of the robust MAP prior.</p>
 <span><span class="co">#&gt; Reference scale: 88</span></span>
 <span><span class="co">#&gt; Mixture Components:</span></span>
 <span><span class="co">#&gt;   comp1        comp2        comp3        comp4        robust      </span></span>
-<span><span class="co">#&gt; w   0.42953742   0.36836377   0.06043215   0.03166666   0.11000000</span></span>
-<span><span class="co">#&gt; m -46.68514069 -51.27537132 -63.24089949 -53.49794729 -50.00000000</span></span>
-<span><span class="co">#&gt; s   7.85276294  24.99653411   7.81927603  53.01822452  88.00000000</span></span>
+<span><span class="co">#&gt; w   0.42953723   0.36836378   0.06043232   0.03166666   0.11000000</span></span>
+<span><span class="co">#&gt; m -46.68513756 -51.27537075 -63.24087734 -53.49794772 -50.00000000</span></span>
+<span><span class="co">#&gt; s   7.85276132  24.99653345   7.81928574  53.01822291  88.00000000</span></span>
 <span><span class="op">(</span><span class="va">postmix_rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/postmix.html" class="external-link">postmix</a></span><span class="op">(</span><span class="va">rmap_c</span>, n <span class="op">=</span> <span class="fl">50</span>, m <span class="op">=</span> <span class="op">-</span><span class="fl">53</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Using default prior reference scale 88</span></span>
 <span><span class="co">#&gt; Univariate normal mixture</span></span>
 <span><span class="co">#&gt; Reference scale: 88</span></span>
 <span><span class="co">#&gt; Mixture Components:</span></span>
 <span><span class="co">#&gt;   comp1        comp2        comp3        comp4        robust      </span></span>
-<span><span class="co">#&gt; w   0.59380459   0.29368964   0.07194538   0.01296934   0.02759105</span></span>
-<span><span class="co">#&gt; m -48.48342650 -52.65742184 -60.34238774 -53.02600370 -52.94117647</span></span>
-<span><span class="co">#&gt; s   6.64117904  11.14068328   6.62088661  12.11577031  12.32246474</span></span>
+<span><span class="co">#&gt; w   0.59380430   0.29368965   0.07194565   0.01296934   0.02759105</span></span>
+<span><span class="co">#&gt; m -48.48342373 -52.65742172 -60.34236670 -53.02600372 -52.94117647</span></span>
+<span><span class="co">#&gt; s   6.64117806  11.14068322   6.62089251  12.11577029  12.32246474</span></span>
 <span><span class="va">post_rmap_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://opensource.nibr.com/RBesT/reference/mix.html" class="external-link">rmix</a></span><span class="op">(</span>mix <span class="op">=</span> <span class="va">postmix_rmap_c</span>, n <span class="op">=</span> <span class="fl">20000</span><span class="op">)</span></span></code></pre></div>
 <p>The treatment arm in the current trial will not be augmented by
 historical data. We therefore use the same vague prior in the rMAP prior
