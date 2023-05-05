@@ -1,7 +1,7 @@
 ---
 title: "EB-rMAP Prior with a Normal Endpoint"
 author: "Hongtao Zhang"
-date: "12/15/2022"
+date: "05/04/2023"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{EB-rMAP Prior with a Normal Endpoint}
@@ -109,4 +109,4 @@ mean(diff_sample < 0)
 ## References
 [1] Weber, S., Li, Y., Seaman III, J. W., Kakizume, T., Schmidli, H. (2021). Applying Meta-Analytic-Predictive Priors with the R Bayesian Evidence Synthesis Tools. *Journal of Statistical Software*, 100, 1-32.
 
-[2] Zhang, H., Shen, Y., Li, J., Ye, H., Chiang, AY. (2023+). Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes. 
+[2] Zhang, H., Shen, Y., Li, J., Ye, H., Chiang, AY. (2023). Adaptively Leveraging External Data with Robust Meta-Analytical-Predictive Prior Using Empirical Bayes, *Pharmaceutical Statistics*
