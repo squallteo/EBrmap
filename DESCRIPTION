@@ -1,7 +1,7 @@
 Package: EBrmap
 Type: Package
 Title: Robust Meta-Analytical-Predictive Prior with Empirical Bayes
-Version: 0.1.0
+Version: 1.0
 Author: Hongtao Zhang
 Maintainer: Hongtao Zhang <squallteo@gmail.com>
 Description: An R package to implement the empirical Bayes robust meta-analytical-predictive (EB-rMAP) prior by Zhang et al. (2023).
